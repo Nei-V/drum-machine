@@ -1,48 +1,70 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import mp3_file from './town.mp3';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.testsound = this.testsound.bind(this);
-  }
+class App extends Component{
+    constructor (props) {
+      super (props);
+     // this.pressButton=this.pressButton.bind(this);
+     this.playAudio=this.playAudio.bind(this);
+     this.pauseAudio=this.pauseAudio.bind(this);
+    }
 
-  testsound() {
-    let x = document.getElementById("town");
-    console.log(x);
-  }
-
-  render() {
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Drum Machine</h1>
-        </header>
-        <p className="App-intro">
-          Let's play a beat
-        </p>
-        <div id="pads">
-
-          <button id="town" className="Q" onClick={this.testsound()} >Q
-          <audio className="clip" id="Q">
-              <source src="http://s000.tinyupload.com/download.php?file_id=77751249887312113496&t=7775124988731211349651225" type="audio/mpeg" />
-            </audio>
-          </button>
-
-        </div>
-        <div id="controls">
-        </div>
-        <div id="display">
-        </div>
-      </div>
-    );
-
+    playAudio() { 
+      let x = document.getElementById("myAudio"); 
+      x.play(); 
+      console.log("play, x is: ",x);
+  } 
+  
+  pauseAudio() { 
+    let x = document.getElementById("myAudio"); 
+      x.pause(); 
+      console.log("pause");
+  } 
    
-  }
-}
+  
 
+    /*
+    pressButton(e){
+      this.props.keyPressed(event.target.value);
+      console.log(event.target.value);
+    }
+*/
+
+
+
+    render(){
+
+      
+     
+  
+     
+      return(
+        <div>
+          <p>Click the buttons to play or pause the audio.</p>
+          <button onClick={this.playAudio} type="button">Play Audio</button>
+  <button onClick={this.pauseAudio} type="button">Pause Audio</button> 
+<audio id="myAudio">
+  <source src="https://res.cloudinary.com/dg45lvfuu/video/upload/v1533156862/sounds/town.mp3" type="audio/mpeg" />
+</audio>
+
+          </div>
+      )
+    
+  }
+
+  /*
+
+  
+  
+  
+  
+  <script>
+  
+  </script>
+
+  */
+}
 
 export default App;
