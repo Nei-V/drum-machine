@@ -2,27 +2,20 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
 
-.App-title {
-  font-size: 1.5em;
-}
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+#footerInReact {
+  text-align: center;
+  border-top: 1px solid rgb(53,53,63);
+  max-height:max-content;
+  //grid-area:footer1; - not working yet
+  margin-top:-10px;
+  p{
+    font-size:1em;
+  }
+  a img {
+    height:2.5em;
+    margin-bottom:-02em;
+  }
 }
