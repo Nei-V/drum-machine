@@ -52,3 +52,8 @@ export const FOOTER=`
   </a>
 </section>
 </footer>`
+
+export const PRESSED_KEY='PRESSED_KEY';
+export const CHOSEN_SET='CHOSEN_SET';
+export const POWER='POWER';
+export const VOLUME='VOLUME';
