@@ -4,4 +4,5 @@ import rootReducer from './reducers/rootReducer';
 
 const reduxStore = createStore(rootReducer,applyMiddleware(thunk));
 
+
 export default reduxStore;
