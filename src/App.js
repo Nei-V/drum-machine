@@ -31,15 +31,61 @@ class Footer extends Component {
 class Sound extends Component {
   constructor(props) {
     super(props);
+    this.setVolume=this.setVolume.bind(this);
   }
-  render() {
+  
+  setVolume(){
+   
+    let soundPlayed=document.getElementById("Q");
+    console.log("the sound played is:",soundPlayed);
+  }
+
+render() {
+  
     return (
-      <audio id="Q" className="clip">
+      <audio id="Q" className="clip" controls >
         <source src={SET1.RIDE} type="audio/mpeg" />
+        
       </audio>
+      
     )
   }
 }
+
+class Volume extends Component {
+  constructor(props) {
+    super(props);
+    this.changeVolumeFunc = this.changeVolumeFunc.bind(this);
+  }
+
+  changeVolumeFunc() {
+    let slider = document.getElementById("volumeRange");
+    console.log(slider.value);
+   
+      volume = slider.value;
+    this.props.vol.newVolume(volume);
+      //console.log("the volume is ",volume);
+   
+    
+   // console.log("storedstate in changeVolumeFunc",this.props);
+  
+  
+
+
+
+  }
+
+  render() {
+    return (
+      <label id="volumeToggle">Volume
+    <input type="range" min="0" max="1" defaultValue="0.5" step="0.01" id="volumeRange" onChange={this.changeVolumeFunc} />
+      </label>
+    )
+  }
+
+}
+
+
 
 class PowerToggle extends Component {
   constructor(props) {
@@ -92,37 +138,18 @@ class  ChangeSounds extends Component {
 
 
 
-class Volume extends Component {
-  constructor(props) {
-    super(props);
-    this.changeVolumeFunc = this.changeVolumeFunc.bind(this);
-  }
 
-  changeVolumeFunc() {
-    let slider = document.getElementById("volumeRange");
-    slider.oninput = function () {
-      volume = slider.value;
-    }
-    console.log("the volume is ",volume);
-  }
-
-  render() {
-    return (
-      <label id="volumeToggle">Volume
-    <input type="range" min="0" max="1" defaultValue="0.5" step="0.01" id="volumeRange" onClick={this.changeVolumeFunc} />
-      </label>
-    )
-  }
-
-}
 
 
 class App extends Component {
+
+  //state={volumeLevel:0.5};
   constructor(props) {
     super(props);
     this.playAudio = this.playAudio.bind(this);
     //this.pauseAudio = this.pauseAudio.bind(this);
     this.playAudioOnKey = this.playAudioOnKey.bind(this);
+    console.log("the state in App is,", props)
   }
 
   componentDidMount() {
@@ -136,7 +163,9 @@ class App extends Component {
   playAudio(e) {
     let x = e.target.firstElementChild;
     x.play();
-    console.log("play, x is: ", x);
+    console.log("playaudio, x is: ", x);
+    console.log("the state of playaudio is:",this.props);
+        x.volume=this.props.storedState.setTheVolume;
   }
 
   /*
@@ -150,13 +179,16 @@ class App extends Component {
   playAudioOnKey(e) {
     e.preventDefault();
     console.log("key pressed (keycode)", e);
+  
     let z = e.key;
     console.log("z: ", z)
 
     if (GOODKEYS.includes(z)) {
-      let uppecaselikeID = document.getElementById(z.toUpperCase());
-      uppecaselikeID.play();
-      console.log(uppecaselikeID);
+      let uppercaselikeID = document.getElementById(z.toUpperCase());
+      uppercaselikeID.volume=this.props.storedState.setTheVolume;
+      uppercaselikeID.play();
+      
+      console.log(uppercaselikeID);
     }
   }
 
@@ -173,7 +205,7 @@ class App extends Component {
       <div>
         <p>Click the buttons to play or pause the audio.</p>
 
-        <button id="ride" onClick={this.playAudio} onKeyPress={this.playAudioOnKey} className="drum-pad">Q
+        <button id="ride" onClick={this.playAudio}  onKeyPress={this.playAudioOnKey} className="drum-pad">Q
         <Sound />
           {/*
 <audio id="Q" className="clip">
@@ -221,7 +253,7 @@ class App extends Component {
         <br />
         <ChangeSounds />
         <br />
-        <Volume />
+        <Volume vol={this.props}/>
         <br />
         <br />
         <Footer />
@@ -232,4 +264,22 @@ class App extends Component {
 
 }
 
-export default App;
+
+const mapStateToProps = (state) => {
+  console.log("the state is mapstatetoprops is",state);
+  return { storedState: state }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newVolume: (volume) => {
+      console.log("text in mapDispatch: ", volume);
+      dispatch(volumeFunc(volume))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
