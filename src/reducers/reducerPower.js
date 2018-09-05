@@ -3,15 +3,14 @@ import {POWER} from '../constants';
 const isPowered = (state = true, action) => {
     switch (action.type) {
         case POWER:
-        console.log(action.isOn);
-        return action.isOn;
+        console.log("onOff in reducer received",action.onOff);
+        return action.onOff;
         default:
-        console.log(state);
+        console.log("onOff default in reducer",state);
         return state;
-       
-    }
-}
-console.log("isPowered",isPowered);
+       }
+};
+console.log("isPowered the result of reducer",isPowered);
 export default isPowered;
 
 /*

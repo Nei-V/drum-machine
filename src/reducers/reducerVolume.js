@@ -1,6 +1,6 @@
 import {VOLUME} from '../constants';
 
-const setTheVolume = (state = 0.5,action) => {
+const setTheVolume = (state = 0.4,action) => {
     switch (action.type) {
         case VOLUME:
         console.log("new state");

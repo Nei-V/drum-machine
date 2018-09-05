@@ -5,7 +5,7 @@ export const powerFunc = (onOff) => dispatch =>
 {
     dispatch ({
         type: POWER,
-        isOn:onOff
+        onOff
     })
 }
 

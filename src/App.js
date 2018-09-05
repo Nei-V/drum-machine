@@ -7,14 +7,14 @@ import { SET1, SET2, GOODKEYS, FOOTER } from './constants';
 //set1: RIDE, RIVER, PIERREBASIC, PIERRE, MOODY, NEWWAVE, JUMP, MAXO, FUNKY,
 //set2: FAN, DRO, AAP, ZAYLEAD, TOWN, STABS, CHANGE, BELL, BOUNCE
 
-import {chooseSetFunc} from './actions/actionChoseSet';
-import {powerFunc} from './actions/actionPower';
-import {typedKeyFunc} from './actions/actionTypedKey';
-import {volumeFunc} from './actions/actionVolume';
+import { chooseSetFunc } from './actions/actionChoseSet';
+import { powerFunc } from './actions/actionPower';
+import { typedKeyFunc } from './actions/actionTypedKey';
+import { volumeFunc } from './actions/actionVolume';
 
-let powerValue = true;
-let soundSet= SET1;
-let volume = 0.5;
+
+let soundSet = SET1;
+
 
 class Footer extends Component {
   render() {
@@ -31,23 +31,13 @@ class Footer extends Component {
 class Sound extends Component {
   constructor(props) {
     super(props);
-    this.setVolume=this.setVolume.bind(this);
-  }
-  
-  setVolume(){
-   
-    let soundPlayed=document.getElementById("Q");
-    console.log("the sound played is:",soundPlayed);
   }
 
-render() {
-  
+  render() {
     return (
-      <audio id="Q" className="clip" controls >
+      <audio id="Q" className="clip" > {/*you can add controls inside the audio tag to add a small player*/}
         <source src={SET1.RIDE} type="audio/mpeg" />
-        
       </audio>
-      
     )
   }
 }
@@ -56,29 +46,25 @@ class Volume extends Component {
   constructor(props) {
     super(props);
     this.changeVolumeFunc = this.changeVolumeFunc.bind(this);
+    console.log("props of volume vol", props.vol.storedState.setTheVolume);
+    //let initialVolume=props.vol.storedState.setTheVolume;
   }
+
+
 
   changeVolumeFunc() {
     let slider = document.getElementById("volumeRange");
     console.log(slider.value);
-   
-      volume = slider.value;
+    let volume = slider.value;
     this.props.vol.newVolume(volume);
-      //console.log("the volume is ",volume);
-   
-    
-   // console.log("storedstate in changeVolumeFunc",this.props);
-  
-  
-
-
-
+    //console.log("the volume is ",volume);
+    // console.log("storedstate in changeVolumeFunc",this.props);
   }
 
   render() {
     return (
       <label id="volumeToggle">Volume
-    <input type="range" min="0" max="1" defaultValue="0.5" step="0.01" id="volumeRange" onChange={this.changeVolumeFunc} />
+      <input type="range" min="0" max="1" defaultValue={this.props.vol.storedState.setTheVolume} step="0.01" id="volumeRange" onChange={this.changeVolumeFunc} />
       </label>
     )
   }
@@ -91,16 +77,31 @@ class PowerToggle extends Component {
   constructor(props) {
     super(props);
     this.handleClickPower = this.handleClickPower.bind(this);
+    console.log("props in powerToggle", props);
+    {/*}
+    this.state = {
+      onOff: props.playerWorks.storedState.isPowered
+    }
+  
+    console.log("state in powerToggle,",this.state.onOff);
+    */}
   }
 
   handleClickPower(e) {
-    if (powerValue === true) {
-      powerValue = false;
+    //let { onOff } = this.state;
+    let onOff=this.props.playerWorks.storedState.isPowered;
+    console.log("onOff in handleClickPower", onOff);
+    if (onOff === true) {
+     onOff=false;
+     // this.setState({onOff:false});
     }
     else {
-      powerValue = true;
+      onOff=true;
+     //this.setState({onOff:true});
     }
-    { console.log("power is", powerValue) }
+    console.log("power after click is", onOff) 
+    this.props.playerWorks.playerOn(onOff);
+    
   }
   render() {
     return (
@@ -111,24 +112,24 @@ class PowerToggle extends Component {
   }
 }
 
-class  ChangeSounds extends Component {
-  constructor (props) {
+class ChangeSounds extends Component {
+  constructor(props) {
     super(props);
-    this.changeSoundsFunc=this.changeSoundsFunc.bind(this);
+    this.changeSoundsFunc = this.changeSoundsFunc.bind(this);
   }
 
-  changeSoundsFunc(){
-    if (soundSet===SET1){
-      soundSet=SET2;
+  changeSoundsFunc() {
+    if (soundSet === SET1) {
+      soundSet = SET2;
     }
     else {
-      soundSet=SET1;
+      soundSet = SET1;
     }
-    console.log("sound group is: ",soundSet);
+    console.log("sound group is: ", soundSet);
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <label id="changeSoundsButton">Change Sounds
       <input type="checkbox" onClick={this.changeSoundsFunc} defaultChecked />
       </label>
@@ -149,7 +150,12 @@ class App extends Component {
     this.playAudio = this.playAudio.bind(this);
     //this.pauseAudio = this.pauseAudio.bind(this);
     this.playAudioOnKey = this.playAudioOnKey.bind(this);
-    console.log("the state in App is,", props)
+    console.log("the props in App is,", props)
+    this.state = {
+      onOff: this.props.storedState.isPowered,
+      audioVolume: this.props.storedState.setTheVolume
+    }
+
   }
 
   componentDidMount() {
@@ -160,12 +166,18 @@ class App extends Component {
     document.removeEventListener('keydown', this.playAudioOnKey);
   }
 
+  
   playAudio(e) {
-    let x = e.target.firstElementChild;
-    x.play();
-    console.log("playaudio, x is: ", x);
-    console.log("the state of playaudio is:",this.props);
-        x.volume=this.props.storedState.setTheVolume;
+    let { onOff, audioVolume } = this.state;
+    console.log("stateOfPlayer",onOff);
+    if (onOff) {
+      let x = e.target.firstElementChild;
+      x.play();
+      console.log("playaudio, x is: ", x);
+      console.log("the state of playaudio is:", this.props);
+      //x.volume = this.props.storedState.setTheVolume;
+      x.volume = audioVolume;
+    }
   }
 
   /*
@@ -179,16 +191,16 @@ class App extends Component {
   playAudioOnKey(e) {
     e.preventDefault();
     console.log("key pressed (keycode)", e);
-  
+
     let z = e.key;
     console.log("z: ", z)
 
     if (GOODKEYS.includes(z)) {
       let uppercaselikeID = document.getElementById(z.toUpperCase());
-      uppercaselikeID.volume=this.props.storedState.setTheVolume;
+      uppercaselikeID.volume = this.props.storedState.setTheVolume;
       uppercaselikeID.play();
-      
-      console.log(uppercaselikeID);
+
+      console.log("keypressed in playAudio on key", uppercaselikeID);
     }
   }
 
@@ -205,7 +217,7 @@ class App extends Component {
       <div>
         <p>Click the buttons to play or pause the audio.</p>
 
-        <button id="ride" onClick={this.playAudio}  onKeyPress={this.playAudioOnKey} className="drum-pad">Q
+        <button id="ride" onClick={this.playAudio} onKeyPress={this.playAudioOnKey} className="drum-pad">Q
         <Sound />
           {/*
 <audio id="Q" className="clip">
@@ -249,11 +261,11 @@ class App extends Component {
           </audio></button>
         <dialog id="display" />Played Sound
         <br />
-        <PowerToggle />
+        <PowerToggle playerWorks={this.props} />
         <br />
         <ChangeSounds />
         <br />
-        <Volume vol={this.props}/>
+        <Volume vol={this.props} />
         <br />
         <br />
         <Footer />
@@ -266,15 +278,19 @@ class App extends Component {
 
 
 const mapStateToProps = (state) => {
-  console.log("the state is mapstatetoprops is",state);
+  console.log("the state is mapstatetoprops is", state);
   return { storedState: state }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     newVolume: (volume) => {
-      console.log("text in mapDispatch: ", volume);
+      console.log("volume in mapDispatch: ", volume);
       dispatch(volumeFunc(volume))
+    },
+    playerOn: (onOff) => {
+      console.log("power in mapDispatch :", onOff);
+      dispatch(powerFunc(onOff));
     }
   }
 }
