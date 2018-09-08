@@ -77,6 +77,8 @@ class PowerToggle extends Component {
   constructor(props) {
     super(props);
     this.handleClickPower = this.handleClickPower.bind(this);
+    //this.state={onOff:this.props.playerWorks.storedState.isPowered}
+    this.state={onOff:true};
     console.log("props in powerToggle", props);
     {/*}
     this.state = {
@@ -89,24 +91,28 @@ class PowerToggle extends Component {
 
   handleClickPower(e) {
     //let { onOff } = this.state;
-    let onOff=this.props.playerWorks.storedState.isPowered;
-    console.log("onOff in handleClickPower", onOff);
-    if (onOff === true) {
-     onOff=false;
-     // this.setState({onOff:false});
+   
+    //console.log("onOff in handleClickPower", state.onOff);
+    /* if (onOff === true) {
+     onOff=false; 
     }
     else {
-      onOff=true;
-     //this.setState({onOff:true});
-    }
-    console.log("power after click is", onOff) 
-    this.props.playerWorks.playerOn(onOff);
+     onOff=true; */
+    console.log("previous state in handleClickPower",this.state.onOff);
+    console.log("props in handleClickPower",this.props);
+    //this.setState({onOff:this.props.playerWorks.storedState.isPowered});
+  
+     this.setState(previousState => ({onOff:!previousState.onOff}));
+     console.log("afterclick in handleClickPower",this.state);
+   
+    //console.log("power after click is", state.onOff) 
+    this.props.playerWorks.playerOn(this.state.onOff);
     
   }
   render() {
     return (
       <label id="powerToggle">Power
-        <input type="checkbox" onClick={this.handleClickPower} defaultChecked />
+        <input type="checkbox" onClick={this.handleClickPower} />
       </label>
     )
   }
@@ -168,8 +174,11 @@ class App extends Component {
 
   
   playAudio(e) {
-    let { onOff, audioVolume } = this.state;
-    console.log("stateOfPlayer",onOff);
+    let onOff  = this.props.storedState.isPowered;
+    let audioVolume = this.props.storedState.setTheVolume;
+    console.log("stateOfPlayer",this.props.storedState);
+    console.log("onoff in playaudio",onOff);
+    console.log("audio in playaudio",audioVolume);
     if (onOff) {
       let x = e.target.firstElementChild;
       x.play();
