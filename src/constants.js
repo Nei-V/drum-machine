@@ -23,7 +23,8 @@ export const SET2 = {
     BOUNCE: "https://res.cloudinary.com/dg45lvfuu/video/upload/v1533156861/sounds/Bounce.mp3"
 }
 
-export const GOODKEYS=["q","w","e","a","s","d","z","x","c"];
+
+export const GOODKEYS=["q","w","e","a","s","d","z","x","c","Q","W","E","A","S","D","Z","X","C"];
 
 
 export const FOOTER=`
