@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+//import { createStore, applyMiddleware } from 'redux';
+//import thunk from 'redux-thunk';
 import { connect } from 'react-redux';
+import localProvider from './context/myLocalContext';
 import './App.css';
 import { SET1, SET2, GOODKEYS, FOOTER } from './constants';
 //set1: RIDE, RIVER, PIERREBASIC, PIERRE, MOODY, NEWWAVE, JUMP, MAXO, FUNKY,
@@ -36,7 +37,7 @@ let arrayToObject = function (arr) {
 let soundsObjects = combinedSetArray.map((arr) => arrayToObject(arr));
 console.log("soundsObject", soundsObjects);
 
-//end comibined set
+//end combine set
 
 
 
@@ -154,21 +155,23 @@ class ChangeSounds extends Component {
 }
 
 class Button extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.playAudio = this.playAudio.bind(this);
-    this.playAudioOnKey=this.playAudioOnKey.bind(this);
-    this.state={
-      id:"ride",
-      type:"button",
-      className:"drum-pad",
-      buttonText:"Q",
-     }
+    this.playAudioOnKey = this.playAudioOnKey.bind(this);
+    this.state = {
+      id: this.props.tune,
+      type: "button",
+      className: "drum-pad",
+      label: this.props.letter,
+      theSource: this.props.source
+    }
   }
 
-componentDidMount() {
-    let button=document.getElementsByTagName("button")[0];
-    console.log("the button",button);
+  componentDidMount() {
+    let button = document.getElementsByTagName("button")[0];
+    console.log("the button", button);
+
     button.addEventListener('click', this.playAudio);
   }
 
@@ -180,7 +183,7 @@ componentDidMount() {
     console.log("stateOfPlayer", this.props);
     console.log("onoff in playaudio", onOff);
     console.log("audio in playaudio", audioVolume);
-    console.log("clicked key in playAudio in button",e);
+    console.log("clicked key in playAudio in button", e);
     if (onOff) {
       let x = e.target.firstElementChild;
       x.play();
@@ -192,35 +195,46 @@ componentDidMount() {
 
   componentDidMount() {
     document.addEventListener('keydown', this.playAudioOnKey);
-
+    //console.log("the button realKey", this.state.buttonText);
+    //console.log("the key of the button is",this.state.key);
+    console.log("props in each buton", this.props);
+    console.log("state in each buton", this.state);
   }
+
+
+
+
+  playAudioOnKey(e) {
+    let onOff = this.props.onOff;
+
+    if (onOff) {
+      //e.preventDefault();
+      console.log("key pressed (keycode)", e);
+
+      let z = e.key;
+      console.log("z: ", z)
+
+      if ((z !== "F12") && (GOODKEYS.includes(z))) {
+        let uppercaselikeID = document.getElementById(z.toUpperCase());
+        uppercaselikeID.volume = this.props.audioVolume;
+        uppercaselikeID.play();
+
+        console.log("keypressed in playAudio on key", uppercaselikeID);
+      }
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.playAudioOnKey);
   }
 
 
-  playAudioOnKey(e) {
-    e.preventDefault();
-    console.log("key pressed (keycode)", e);
+  render() {
+    return (
 
-    let z = e.key;
-    console.log("z: ", z)
-
-    if (GOODKEYS.includes(z)) {
-      let uppercaselikeID = document.getElementById(z.toUpperCase());
-      uppercaselikeID.volume = this.props.audioVolume;
-      uppercaselikeID.play();
-
-      console.log("keypressed in playAudio on key", uppercaselikeID);
-    }
+      <button onClick={this.playAudio} onKeyPress={this.playAudioOnKey} id={this.state.id} type={this.state.type} className={this.state.className} >{this.state.label}<Audio id={this.state.label} src={this.state.theSource} /></button>
+    )
   }
-
-render(){
-  return(
-   
-    <button onClick={this.playAudio} onKeyPress={this.playAudioOnKey} id={this.state.id} type={this.state.type} className={this.state.className} >{this.state.buttonText}<Audio /></button>
-  )
-}
 }
 
 
@@ -230,9 +244,9 @@ class Audio extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: "Q",
+      id: this.props.id,
       className: "clip",
-      src: SET1.RIDE,
+      src: this.props.src,
       type: "audio/mpeg"
     }
   }
@@ -241,7 +255,22 @@ class Audio extends Component {
   }
 }
 
+class ButtonsGenerator extends Component {
+  constructor(props) {
+    super(props);
+    
+  }
 
+  render() {
+    return(
+      <div>
+      {soundsObjects.slice(0, 9).map((item, i) => (
+        <Button tune={item.name} key={item.id} letter={item.realKey} source={item.source} onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />)
+      )}
+      </div>
+    )
+  }
+}
 
 
 class App extends Component {
@@ -262,37 +291,7 @@ class App extends Component {
     return (
       <div>
         <p>Click the buttons to play or pause the audio.</p>
-        <Button onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume}/>
-{/*}
-        <button id="ride" onClick={this.playAudio} onKeyPress={this.playAudioOnKey} type="button" className="drum-pad">Q
-            //<audio id="Q" className="clip" src={SET1.RIDE} type="audio/mpeg" />
-            //<Audio />
-        </button>
-    */}
-        <button id="river" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">W
-            <audio id="W" className="clip" src={SET1.RIVER} type="audio/mpeg" />
-        </button>
-        <button id="pierrebasic" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">E
-            <audio id="E" className="clip" src={SET1.PIERREBASIC} type="audio/mpeg" />
-        </button>
-        <button id="pierre" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">A
-            <audio id="A" className="clip" src={SET1.PIERRE} type="audio/mpeg" />
-        </button>
-        <button id="moody" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">S
-            <audio id="S" className="clip" src={SET1.MOODY} type="audio/mpeg" />
-        </button>
-        <button id="newwave" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">D
-            <audio id="D" className="clip" src={SET1.NEWWAVE} type="audio/mpeg" />
-        </button>
-        <button id="jump" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">Z
-            <audio id="Z" className="clip" src={SET1.JUMP} type="audio/mpeg" />
-        </button>
-        <button id="maxo" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">X
-            <audio id="X" className="clip" src={SET1.MAXO} type="audio/mpeg" />
-        </button>
-        <button id="funky" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">C
-           <audio id="C" className="clip" src={SET1.FUNKY} type="audio/mpeg" />
-        </button>
+
         <dialog id="display" />Played Sound
         <br />
         <PowerToggle playerWorks={this.props} />
@@ -302,12 +301,14 @@ class App extends Component {
         <Volume vol={this.props} />
         <br />
         <br />
+        <ButtonsGenerator />
+        <br />
+        <br />
         <Footer />
       </div>
     )
 
   }
-
 }
 
 
@@ -333,3 +334,34 @@ export default connect(mapStateToProps, mapDispatchToProps)(App);
 
 
 
+{/* <Button onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />
+        
+        <button id="ride" onClick={this.playAudio} onKeyPress={this.playAudioOnKey} type="button" className="drum-pad">Q
+            //<audio id="Q" className="clip" src={SET1.RIDE} type="audio/mpeg" />
+            //<Audio />
+        </button>
+    
+        <button id="river" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">W
+            <audio id="W" className="clip" src={SET1.RIVER} type="audio/mpeg" />
+        </button>
+        <button id="pierrebasic" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">E
+            <audio id="E" className="clip" src={SET1.PIERREBASIC} type="audio/mpeg" />
+        </button>
+        <button id="pierre" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">A
+            <audio id="A" className="clip" src={SET1.PIERRE} type="audio/mpeg" />
+        </button>
+        <button id="moody" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">S
+            <audio id="S" className="clip" src={SET1.MOODY} type="audio/mpeg" />
+        </button>
+        <button id="newwave" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">D
+            <audio id="D" className="clip" src={SET1.NEWWAVE} type="audio/mpeg" />
+        </button>
+        <button id="jump" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">Z
+            <audio id="Z" className="clip" src={SET1.JUMP} type="audio/mpeg" />
+        </button>
+        <button id="maxo" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">X
+            <audio id="X" className="clip" src={SET1.MAXO} type="audio/mpeg" />
+        </button>
+        <button id="funky" onClick={this.playAudio} onKeyDown={this.playAudioOnKey} type="button" className="drum-pad">C
+           <audio id="C" className="clip" src={SET1.FUNKY} type="audio/mpeg" />
+        </button> */}
