@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 //import { createStore, applyMiddleware } from 'redux';
 //import thunk from 'redux-thunk';
 import { connect } from 'react-redux';
-import localProvider from './context/myLocalContext';
+import LocalProvider from './context/myLocalContext';
 import './App.css';
-import { SET1, SET2, GOODKEYS, FOOTER } from './constants';
+import { FOOTER } from './constants';
 //set1: RIDE, RIVER, PIERREBASIC, PIERRE, MOODY, NEWWAVE, JUMP, MAXO, FUNKY,
 //set2: FAN, DRO, AAP, ZAYLEAD, TOWN, STABS, CHANGE, BELL, BOUNCE
 
@@ -12,32 +12,10 @@ import { chooseSetFunc } from './actions/actionChoseSet';
 import { powerFunc } from './actions/actionPower';
 import { typedKeyFunc } from './actions/actionTypedKey';
 import { volumeFunc } from './actions/actionVolume';
+import ButtonsGenerator from './components/buttonGenerator';
+import ChangeSounds from './components/ChangeSounds';
 
 
-//creating combine set
-
-let combinedSetArray = [];
-let set1Array = Object.entries(SET1);
-let set2Array = Object.entries(SET2);
-combinedSetArray = set1Array.concat(set2Array);
-combinedSetArray.map((value) => value.unshift(combinedSetArray.indexOf(value) + 1));
-for (let i = 0; i < 9; i++) {
-  combinedSetArray[i].push(GOODKEYS[i + 9]);
-  combinedSetArray[i + 9].push(GOODKEYS[i + 9]);
-}
-let arrayToObject = function (arr) {
-  return {
-    id: arr[0],
-    name: arr[1],
-    source: arr[2],
-    realKey: arr[3]
-  }
-}
-
-let soundsObjects = combinedSetArray.map((arr) => arrayToObject(arr));
-console.log("soundsObject", soundsObjects);
-
-//end combine set
 
 
 
@@ -132,148 +110,15 @@ class PowerToggle extends Component {
   }
 }
 
-class ChangeSounds extends Component {
-  constructor(props) {
-    super(props);
-    this.changeSoundsFunc = this.changeSoundsFunc.bind(this);
-    this.state = { firstSet: true };
-  }
-
-  changeSoundsFunc(e) {
-    console.log("first sound group before click: ", this.state);
-    this.setState(previousState => ({ firstSet: !previousState.firstSet }))
-    console.log("first sound group after click: ", this.state);
-  }
-
-  render() {
-    return (
-      <label id="changeSoundsButton">Change Sounds
-      <input type="checkbox" onClick={this.changeSoundsFunc} />
-      </label>
-    )
-  }
-}
-
-class Button extends Component {
-  constructor(props) {
-    super(props);
-    this.playAudio = this.playAudio.bind(this);
-    this.playAudioOnKey = this.playAudioOnKey.bind(this);
-    this.state = {
-      id: this.props.tune,
-      type: "button",
-      className: "drum-pad",
-      label: this.props.letter,
-      theSource: this.props.source
-    }
-  }
-
-  componentDidMount() {
-    let button = document.getElementsByTagName("button")[0];
-    console.log("the button", button);
-
-    button.addEventListener('click', this.playAudio);
-  }
-
-
-  playAudio(e) {
-    //{console.log("audioVolume in playAudio in button",this.state.audioVolume);}
-    let onOff = this.props.onOff;
-    let audioVolume = this.props.audioVolume;
-    console.log("stateOfPlayer", this.props);
-    console.log("onoff in playaudio", onOff);
-    console.log("audio in playaudio", audioVolume);
-    console.log("clicked key in playAudio in button", e);
-    if (onOff) {
-      let x = e.target.firstElementChild;
-      x.play();
-      console.log("playaudio, x is: ", x);
-      console.log("the state of playaudio is:", this.props);
-      x.volume = audioVolume;
-    }
-  }
-
-  componentDidMount() {
-    document.addEventListener('keydown', this.playAudioOnKey);
-    //console.log("the button realKey", this.state.buttonText);
-    //console.log("the key of the button is",this.state.key);
-    console.log("props in each buton", this.props);
-    console.log("state in each buton", this.state);
-  }
 
 
 
 
-  playAudioOnKey(e) {
-    let onOff = this.props.onOff;
-
-    if (onOff) {
-      //e.preventDefault();
-      console.log("key pressed (keycode)", e);
-
-      let z = e.key;
-      console.log("z: ", z)
-
-      if ((z !== "F12") && (GOODKEYS.includes(z))) {
-        let uppercaselikeID = document.getElementById(z.toUpperCase());
-        uppercaselikeID.volume = this.props.audioVolume;
-        uppercaselikeID.play();
-
-        console.log("keypressed in playAudio on key", uppercaselikeID);
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('keydown', this.playAudioOnKey);
-  }
-
-
-  render() {
-    return (
-
-      <button onClick={this.playAudio} onKeyPress={this.playAudioOnKey} id={this.state.id} type={this.state.type} className={this.state.className} >{this.state.label}<Audio id={this.state.label} src={this.state.theSource} /></button>
-    )
-  }
-}
-
-
-//<button id="ride" onClick={this.playAudio} onKeyPress={this.playAudioOnKey} type="button" className="drum-pad">Q </button>
-
-class Audio extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      id: this.props.id,
-      className: "clip",
-      src: this.props.src,
-      type: "audio/mpeg"
-    }
-  }
-  render() {
-    return (<audio id={this.state.id} className={this.state.className} src={this.state.src} type={this.state.type} />)
-  }
-}
-
-class ButtonsGenerator extends Component {
-  constructor(props) {
-    super(props);
-    
-  }
-
-  render() {
-    return(
-      <div>
-      {soundsObjects.slice(0, 9).map((item, i) => (
-        <Button tune={item.name} key={item.id} letter={item.realKey} source={item.source} onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />)
-      )}
-      </div>
-    )
-  }
-}
 
 
 class App extends Component {
+  
+  /* 
   constructor(props) {
     super(props);
     //this.playAudio = this.playAudio.bind(this);
@@ -285,7 +130,7 @@ class App extends Component {
     }
 
   }
-
+ */
 
   render() {
     return (
@@ -296,13 +141,19 @@ class App extends Component {
         <br />
         <PowerToggle playerWorks={this.props} />
         <br />
-        <ChangeSounds />
         <br />
         <Volume vol={this.props} />
         <br />
+        <LocalProvider>
+          <ChangeSounds />
+        </LocalProvider>
+
+
+
         <br />
-        <ButtonsGenerator />
+        {/*  <ButtonsGenerator onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} /> */}
         <br />
+
         <br />
         <Footer />
       </div>

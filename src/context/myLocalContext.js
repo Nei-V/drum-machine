@@ -1,8 +1,8 @@
 import React from 'react';
 
-export const myLocalContext = React.createContext("set1");
+export const MyLocalContext = React.createContext("set1");
 
-class localProvider extends React.Component {
+class LocalProvider extends React.Component {
     constructor(props) {
         super(props);
 
@@ -10,7 +10,7 @@ class localProvider extends React.Component {
             this.setState(state => {
                 const newSet = state.soundSet === 'set1' ? 'set2' : 'set1';
                 return {
-                    sounsSet: newSet
+                    soundSet: newSet
                 };
             });
         };
@@ -23,11 +23,12 @@ class localProvider extends React.Component {
 
     render () {
         return (
-            <myLocalContext.Provider value={this.state}>
+            <MyLocalContext.Provider value={this.state}>
             {this.props.childern}
-            </myLocalContext.Provider>
+            {console.log("LocalProvider test")}
+            </MyLocalContext.Provider>
         );
     }
 }
 
-export default localProvider;
+export default LocalProvider;
