@@ -24,7 +24,7 @@ class LocalProvider extends React.Component {
     render () {
         return (
             <MyLocalContext.Provider value={this.state}>
-            {this.props.childern}
+            {this.props.children}
             {console.log("LocalProvider test")}
             </MyLocalContext.Provider>
         );
