@@ -58,3 +58,4 @@ export const PRESSED_KEY='PRESSED_KEY';
 export const CHOSEN_SET='CHOSEN_SET';
 export const POWER='POWER';
 export const VOLUME='VOLUME';
+export const PLAYED_SOUND='PLAYED_SOUND';

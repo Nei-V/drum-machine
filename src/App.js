@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LocalProvider from './context/myLocalContext';
 import './App.css';
-import { FOOTER } from './constants';
+import Footer from './components/Footer';
 //set1: RIDE, RIVER, PIERREBASIC, PIERRE, MOODY, NEWWAVE, JUMP, MAXO, FUNKY,
 //set2: FAN, DRO, AAP, ZAYLEAD, TOWN, STABS, CHANGE, BELL, BOUNCE
 
@@ -14,23 +14,15 @@ import { typedKeyFunc } from './actions/actionTypedKey';
 import { volumeFunc } from './actions/actionVolume';
 import ButtonsGenerator from './components/buttonGenerator';
 import ChangeSounds from './components/ChangeSounds';
+import { playedSoundFunc } from './actions/actionPlayedSound';
+import  Display from './components/Display';
 
 
 
 
 
 
-class Footer extends Component {
-  render() {
-    function createFooter(a) {
-      return { __html: a }
-    }
-    return (
-      <div id="footerInReact" dangerouslySetInnerHTML={createFooter(FOOTER)}>
-      </div>
-    )
-  }
-}
+
 
 /* not needed in order to pass the tests
 class Sound extends Component {
@@ -136,8 +128,8 @@ class App extends Component {
     return (
       <div>
         <p>Click the buttons to play or pause the audio.</p>
-
-        <dialog id="display" />Played Sound
+<Display />
+      {/*   <dialog id="display" />Played Sound */}
         <br />
         <PowerToggle playerWorks={this.props} />
         <br />
@@ -146,14 +138,10 @@ class App extends Component {
         <br />
         <LocalProvider>
           <ChangeSounds />
+          <ButtonsGenerator onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />
         </LocalProvider>
-
-
-
         <br />
-        {/*  <ButtonsGenerator onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} /> */}
         <br />
-
         <br />
         <Footer />
       </div>

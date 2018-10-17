@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import { GOODKEYS } from 'constants';
+import { playedSoundFunc } from '../actions/actionPlayedSound';
 
 
 
@@ -59,6 +60,7 @@ class Button extends Component {
         console.log("playaudio, x is: ", x);
         console.log("the state of playaudio is:", this.props);
         x.volume = audioVolume;
+        this.props.playedSound(this.props.tune);
       }
     }
   
@@ -69,6 +71,7 @@ class Button extends Component {
       console.log("props in each buton", this.props);
       console.log("state in each buton", this.state);
     }
+  
   
   
   
@@ -106,4 +109,17 @@ class Button extends Component {
     }
   }
   
-  export default Button;
+
+ const mapStateToProps = (state)=>{
+   return { storedState:state}
+ }
+
+  const mapDispatchToProps = (dispatch) => {
+    return {
+      playedSound : (played) => {
+        dispatch(playedSoundFunc(played))
+      }
+    }
+  }
+
+  export default connect(mapStateToProps ,mapDispatchToProps)(Button);
