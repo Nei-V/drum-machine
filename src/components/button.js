@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { GOODKEYS } from 'constants';
+import { GOODKEYS } from '../constants';
 import { playedSoundFunc } from '../actions/actionPlayedSound';
 
 
@@ -43,6 +43,11 @@ class Button extends Component {
       console.log("the button", button);
   
       button.addEventListener('click', this.playAudio);
+   
+      //console.log("the button realKey", this.state.buttonText);
+      //console.log("the key of the button is",this.state.key);
+      console.log("props in each buton", this.props);
+      console.log("state in each buton", this.state);
     }
   
   
@@ -66,14 +71,10 @@ class Button extends Component {
     }
   
     componentDidMount() {
-      document.addEventListener('keydown', this.playAudioOnKey);
-      //console.log("the button realKey", this.state.buttonText);
-      //console.log("the key of the button is",this.state.key);
-      console.log("props in each buton", this.props);
-      console.log("state in each buton", this.state);
+      document.addEventListener('keydown', this.playAudioOnKey);  
     }
   
-  
+  //doesn't work if I remove this lifecyclemethod "componentsDidMount" even though it exists before.
   
   
   
@@ -97,9 +98,7 @@ class Button extends Component {
       }
     }
   
-    componentWillUnmount() {
-      document.removeEventListener('keydown', this.playAudioOnKey);
-    }
+    
   
   
     render() {
@@ -108,7 +107,15 @@ class Button extends Component {
         <button onClick={this.playAudio} onKeyPress={this.playAudioOnKey} id={this.state.id} type={this.state.type} className={this.state.className} >{this.state.label}<Audio id={this.state.label} src={this.state.theSource} /></button>
       )
     }
+
+    componentWillUnmount() {
+      
+      document.removeEventListener('keydown', this.playAudioOnKey);
+    }
+
+
   }
+  
   
 
  const mapStateToProps = (state)=>{
