@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class Display extends Component {
-    constructor(props){
-            super(props);
-    }
+   
 
-    render(){
+  
+    render() {
         return (
-            <p id="display">played sound from redux</p>
+            <p id="display">played sound from redux - {this.props.storedState.setThePlayedSound} </p>
         )
     }
 }
 
-export default Display;
+const mapStateToProps = (state) => {
+    return { storedState: state }
+}
+
+export default connect(mapStateToProps)(Display);

@@ -59,6 +59,7 @@ class Button extends Component {
         x.play();
         console.log("playaudio, x is: ", x);
         console.log("the state of playaudio is:", this.props);
+        console.log("the pressed song is:", this.props.tune);
         x.volume = audioVolume;
         this.props.playedSound(this.props.tune);
       }
