@@ -1,0 +1,52 @@
+In HTML
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 420 420">
+    
+    <path onclick="alert('E');" d="M 210 10 a 200 200 0 0 1 141.42 58.57 L 210 210 z"/>
+    <path onclick="alert('D');" d="M 410 210 a 200 200 0 0 0 -58.57 -141.42 L 210 210 z"/>
+    <path onclick="alert('C');" d="M 410 210 a 200 200 0 0 1 -58.57 141.42 L 210 210 z"/>
+    <path onclick="alert('X');" d="M 210 410 a 200 200 0 0 0 141.42 -58.57 L 210 210 z"/>
+    <path onclick="alert('Z');" d="M 210 410 a 200 200 0 0 1 -141.42 -58.57 L 210 210 z"/>
+    <path onclick="alert('A');" d="M 10 210 a 200 200 0 0 0 58.57 141.42 L 210 210 z"/>
+    <path onclick="alert('Q');" d="M 10 210 a 200 200 0 0 1 58.57 -141.42 L 210 210 z"/>
+    <path onclick="alert('W');" d="M 210 10 a 200 200 0 0 0 -141.42 58.57 L 210 210 z"/>
+    <circle onclick="alert('S');" cx="210" cy="210" r="75" />
+  
+    <text x="250" y="85">E</text>
+    <text x="330" y="160">D</text>
+    <text x="330" y="275">C</text>
+    <text x="250" y="350">X</text>
+    <text x="145" y="350">Z</text>
+    <text x="65" y="275">A</text>
+    <text x="65" y="160">Q</text>
+    <text x="140" y="85">W</text>
+    <text x="200" y="220">S</text>
+
+<svg>
+
+In CSS
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+
+body {
+  text-align: center;
+  background: #333;
+}
+
+svg {
+  width: 420px;
+}
+
+path,circle {
+  fill: #fff;
+  stroke: #222;
+  stroke-width: 10px;
+  cursor: pointer;
+}
+
+text {
+  font-size: 30px;
+  font-family: Montserrat, sans-serif;
+  fill: #333;
+  pointer-events: none;
+}

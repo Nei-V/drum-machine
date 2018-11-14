@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 //import { createStore, applyMiddleware } from 'redux';
 //import thunk from 'redux-thunk';
 import { connect } from 'react-redux';
-import LocalProvider from './context/myLocalContext';
+
 import './App.css';
 import Footer from './components/Footer';
 //set1: RIDE, RIVER, PIERREBASIC, PIERRE, MOODY, NEWWAVE, JUMP, MAXO, FUNKY,
@@ -136,10 +136,11 @@ class App extends Component {
         <br />
         <Volume vol={this.props} />
         <br />
-        <LocalProvider>
+        
           <ChangeSounds />
+          <br />
           <ButtonsGenerator onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />
-        </LocalProvider>
+        
         <br />
         <br />
         <br />
