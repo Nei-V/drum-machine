@@ -1,0 +1,119 @@
+
+
+#drum-machine{
+ 
+  text-align: center;
+  background-color:rgb(65, 65, 224);
+}
+
+#changeSounds{
+  
+}
+
+#button-pad {
+  position:relative;
+  margin:auto;
+  max-width: 400px;
+  min-width:400px;
+  min-height: 200px;
+  background: url(pad2.svg);
+}
+
+#buttonsAncestor {
+  position:relative;
+  
+}
+#RIDE, #FAN { /* Q */
+  position:absolute;
+  background-color:#ff7f2a;
+  margin-left:-100px;
+  margin-top:60px;
+  border-style:none; 
+  cursor: pointer;
+}
+
+#RIVER, #DRO { /* W */
+  position: absolute;;
+  background-color:#e9c6af;
+  margin-left:-45px;
+  margin-top:40px;
+  border-style:none;
+  cursor: pointer;  
+}
+
+#PIERREBASIC, #AAP { /* E */
+  position: absolute;
+  background-color:#d45500;
+  margin-left:20px;
+  margin-top:40px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#PIERRE, #ZAYLEAD {/* A  */
+  position: absolute;
+  background-color:#00ffff;
+  margin-left:-100px;
+  margin-top:95px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#MOODY, #TOWN {/* S  */
+  position: absolute;
+  background-color:#aaccff;
+  margin-left:-15px;
+  margin-top:77px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#NEWWAVE, #STABS {/*D  */
+  position: absolute;
+  background-color:#ffeeaa;
+  margin-left:70px;
+  margin-top:60px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#JUMP, #CHANGE {/* Z */
+  position: absolute;
+  background-color:#c4c8b7;
+  margin-left:-45px;
+  margin-top:115px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#BELL, #MAXO {/* X */
+  position: absolute;
+  background-color:#99ff55;
+  margin-left:20px;
+  margin-top:115px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#FUNKY, #BOUNCE {/* C */
+  position: absolute;
+  background-color:#f4d7d7;
+  margin-left:70px;
+  margin-top:95px;
+  border-style:none;  
+  cursor: pointer;
+}
+
+#footerInReact {
+  text-align: center;
+  border-top: 1px solid #35353f;
+  max-height: max-content;
+  margin-top: -10px; }
+  #footerInReact p {
+    font-size: 1em; }
+  #footerInReact a img {
+    height: 2.5em;
+    margin-bottom: -02em; }
+
+
+

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 //import thunk from 'redux-thunk';
 import { connect } from 'react-redux';
 
-import './App.css';
+import './styles/css/App.css';
 import Footer from './components/Footer';
 //set1: RIDE, RIVER, PIERREBASIC, PIERRE, MOODY, NEWWAVE, JUMP, MAXO, FUNKY,
 //set2: FAN, DRO, AAP, ZAYLEAD, TOWN, STABS, CHANGE, BELL, BOUNCE
@@ -139,8 +139,10 @@ class App extends Component {
         
           <ChangeSounds />
           <br />
+          <div id="button-pad">
+          <span id="buttonsAncestor"></span>
           <ButtonsGenerator onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />
-        
+        </div>
         <br />
         <br />
         <br />

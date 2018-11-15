@@ -6,7 +6,7 @@ export default () => {
   return (
   <MyLocalContext.Consumer>
     {localeVal => (
-        <button onClick={localeVal.changeSounds}>changeSounds</button>
+        <button id="changeSounds" onClick={localeVal.changeSounds}>changeSounds</button>
       )}
   </MyLocalContext.Consumer>
   );
