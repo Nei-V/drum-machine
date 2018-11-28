@@ -38,7 +38,7 @@ class Button extends Component {
       }
     }
   
-    componentDidMount() {
+   /*  componentDidMount() {
       let button = document.getElementsByTagName("button")[0];
       console.log("the button", button);
   
@@ -48,7 +48,7 @@ class Button extends Component {
       //console.log("the key of the button is",this.state.key);
       console.log("props in each buton", this.props);
       console.log("state in each buton", this.state);
-    }
+    } */
   
   
     playAudio(e) {
@@ -63,7 +63,7 @@ class Button extends Component {
         let x = e.target.firstElementChild;
         x.play();
         console.log("playaudio, x is: ", x);
-        console.log("the state of playaudio is:", this.props);
+        console.log("the props of playaudio is:", this.props);
         console.log("the pressed song is:", this.props.tune);
         x.volume = audioVolume;
         this.props.playedSound(this.props.tune);
@@ -91,14 +91,19 @@ class Button extends Component {
         if ((z !== "F12") && (GOODKEYS.includes(z))) {
           let uppercaselikeID = document.getElementById(z.toUpperCase());
           uppercaselikeID.volume = this.props.audioVolume;
-          uppercaselikeID.play();
-  
+          uppercaselikeID.play(); 
+          this.props.playedSound(this.props.tune);
+          console.log("the props when keypressed",this.props);
+          console.log("the state when keypressed",this.state);
           console.log("keypressed in playAudio on key", uppercaselikeID);
         }
       }
     }
   
-    
+    componentWillUnmount() {
+      
+      document.removeEventListener('keydown', this.playAudioOnKey);
+    }
   
   
     render() {
@@ -108,10 +113,7 @@ class Button extends Component {
       )
     }
 
-    componentWillUnmount() {
-      
-      document.removeEventListener('keydown', this.playAudioOnKey);
-    }
+    
 
 
   }
