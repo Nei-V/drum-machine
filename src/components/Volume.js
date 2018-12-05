@@ -19,9 +19,11 @@ class Volume extends Component {
 
     render() {
         return (
-            <label id="volumeToggle">Volume
-            <input type="range" min="0" max="1" defaultValue={this.props.vol.storedState.setTheVolume} step="0.01" id="volumeRange" onChange={this.changeVolumeFunc} />
+            <div className="volume">
+            <label id="volumeToggle" >Volume
+            <input type="range" min="0" max="1" defaultValue={this.props.vol.storedState.setTheVolume} step="0.01" id="volumeRange" onChange={this.changeVolumeFunc} className="volume-slider"/>
             </label>
+            </div>
         )
     }
 }

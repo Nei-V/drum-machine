@@ -1,9 +1,29 @@
 
 
 #drum-machine{
- 
   text-align: center;
-  background-color:#38383d;
+  background-color:rgba(244,215,215,0.2); /* like #F4D7D7 - C background with opacity*/
+}
+
+#menu {
+  width:70%;
+  max-width:600px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:100px 300px 100px;
+  grid-template-areas:"buttons display volume";
+}
+
+#buttons {
+  grid-area:buttons;
+}
+
+.centerDisplay {
+  grid-area:display;
+}
+
+.volume {
+  grid-area:volume;
 }
 
 /* learned from here - toggle power
@@ -18,6 +38,7 @@ https://codepen.io/halvves/pen/BxXNYq */
   width: 46px;
   border-radius: 15px;
   overflow: hidden;
+  box-shadow: inset 0 2px 4px 0 #6e6e6d;
 }
 
 .toggle{
@@ -26,7 +47,7 @@ https://codepen.io/halvves/pen/BxXNYq */
   height: 24px;
   width: 48px;
   border-radius: 15px;
-  background: #d6d6d6;
+  background: #c4c8b7;
   overflow: hidden;
 }
 
@@ -36,7 +57,7 @@ https://codepen.io/halvves/pen/BxXNYq */
   left: 0;
   height: 100%;
   width: 200%;
-  background: #003dda;
+  background: #99ff55;
   transform: translate3d(-100%, 0, 0);
   transition: transform 0.05s linear 0.17s;
 }
@@ -46,10 +67,11 @@ https://codepen.io/halvves/pen/BxXNYq */
 }
 
 .indicator {
-  height: 100%;
+  height: 95%;
   width: 200%;
-  background: white;
+  background:#ff7f2a;
   border-radius: 13px;
+  border-bottom: solid 3px #4b250c;
   transform: translate3d(-75%, 0, 0);
   transition: transform 0.35s cubic-bezier(0.85, 0.05, 0.18, 1.35);
 }
@@ -63,6 +85,38 @@ https://codepen.io/halvves/pen/BxXNYq */
 }
 
 
+/* learned from   http://jsfiddle.net/volcanicpixels/udXXA/     - change set button   */
+
+
+
+ .sound-set-toggle {
+  background-color: #ff7f2a;
+  border-radius:15px;
+  background: linear-gradient(#ff7f2a, #e09461);
+  border: solid 1px #ff7f2a;
+  border-bottom: solid 3px #4b250c;
+  box-shadow: inset 0 0 0 1px #682e07;
+  color: #000000;
+  width:120px;
+  height:24px;
+   }
+  
+  .sound-set-toggle:hover {
+  background: #e7b794;
+  background: linear-gradient(#fad0b3, #fad0b3);
+  border: solid 1px #dfab86;
+  border-bottom: solid 3px #4b250c;
+  box-shadow: inset 0 0 0 1px #c4906c;
+  cursor: pointer; }
+  
+  .sound-set-toggle:active {
+  background-color: #c4c8b7;
+  background: linear-gradient(#c4c8b7, #dee9ba);
+  border-bottom: solid 3px #6e6e6d;
+  box-shadow: inset 0 10px 15px 0 #6e6e6d; }
+  
+
+
 #button-pad {
   position:relative;
   margin:auto;
@@ -72,6 +126,66 @@ https://codepen.io/halvves/pen/BxXNYq */
   background: url(pad2.svg);
 }
 
+/*  volumeSlider      */
+
+#volumeToggle {
+  position: relative;
+  writing-mode:vertical-lr;
+  -webkit-writing-mode:vertical-lr;
+  text-orientation: sideways;
+}
+
+@-moz-document url-prefix() {
+  #volumeToggle {
+    writing-mode: horizontal-tb;
+/*     vertical mode breaks the slider's thumb movement - maybe bag in firefox
+ */    }
+}
+
+.volume-slider {
+  position: absolute;
+  -webkit-appearance: none;
+  width: 150px;
+  height: 15px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  transform-origin:75px 75px;
+  transform:rotate(90deg);
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 40px;
+  clip-path:polygon(0 0,50% 100%,100% 0); 
+  transform-origin:15px 20px;
+  transform:rotate(-90deg);
+  background: #4CAF50;
+  cursor: pointer;
+  
+}
+
+.volume-slider::-moz-range-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 30px;
+  height: 40px;
+  clip-path:polygon(0 0,50% 100%,100% 0); 
+  transform-origin:15px 20px;
+  transform:rotate(-90deg);
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+
+
+
+/* dial pad*/
 #buttonsAncestor {
   position:relative;
   

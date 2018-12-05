@@ -16,15 +16,19 @@ class App extends Component {
     return (
       <div>
         <p>Click the buttons to play or pause the audio.</p>
-        <Display />
-        <br />
-        <PowerToggle playerWorks={this.props} />
-        <br />
-        <br />
-        <Volume vol={this.props} />
-        <br />
-        <ChangeSounds />
-        <br />
+        <div id="menu">
+          <Display />
+          <br />
+          <div id="buttons">
+            <PowerToggle playerWorks={this.props} className="powerToggle" />
+            <br />
+            <ChangeSounds className="changeSounds" />
+          </div>
+          <br />
+          <Volume vol={this.props} />
+          <br />
+          <br />
+        </div>
         <div id="button-pad">
           <span id="buttonsAncestor"></span>
           <ButtonsGenerator onOff={this.props.storedState.isPowered} audioVolume={this.props.storedState.setTheVolume} />

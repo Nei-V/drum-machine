@@ -21,13 +21,15 @@ class PowerToggle extends Component {
     render() {
         return (
             <label id="powerToggle" className="powerContainer">Power
-            <div className="toggle">
+                <span>
+                <div className="toggle">
                     <input className="toggle-state" type="checkbox" id="powerToggleButton" onClick={this.handleClickPower} value="checked" />
                     <div className="toggle-inner">
                         <div className="indicator"></div>
                     </div>
                     <div className="active-bg"></div>
                 </div>
+                </span>
             </label>
         )
     }

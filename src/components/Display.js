@@ -5,11 +5,13 @@ import { MyLocalContext } from '../context/myLocalContext';
 class Display extends Component {
     render() {
         return ([
+            <div className="centerDisplay">,
             <MyLocalContext.Consumer>
             {localValue => <p>{localValue.soundSet}</p>}
              </MyLocalContext.Consumer>,
          <h3>Now Playing:</h3>,
-         <p id="display"> {this.props.storedState.setThePlayedSound}</p> ])
+         <p id="display"> {this.props.storedState.setThePlayedSound}</p>,
+         </div> ])
     }
 }
 
