@@ -4,6 +4,16 @@
   /* like #F4D7D7 - C background with opacity*/
 }
 
+#theDrum {
+  position:relative;
+  width:500px;
+  margin:auto;
+  background-color:#4DC9C9;
+/*   border: 1px ridge blue;
+ */  border-radius:20px;
+  box-shadow: 9px 10px 34px -4px #377575 inset, 9px 10px 34px -4px #377575;
+}
+
 #menu {
   width: auto%;
   max-width:400px;
@@ -120,7 +130,7 @@ https://codepen.io/halvves/pen/BxXNYq */
   min-width: 400px;
   min-height: 200px;
   background: url(pad2.svg);
-}
+ }
 
 /*  volumeSlider      */
 
