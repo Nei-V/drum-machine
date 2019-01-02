@@ -41,13 +41,13 @@ class ButtonsGenerator extends Component {
     return (
       <MyLocalContext.Consumer>
         
-        {localValue => localValue.soundSet === 'set1' ?
+        {localValue => localValue.soundSet === 'FIRST SET' ?
           (soundsObjects.slice(0, 9).map((item, i) => {
             console.log("props in slice in buttonGenerator.js", this.props);
-            return [<Button tune={item.name} key={item.id} letter={item.realKey} source={item.source} onOff={this.props.onOff} audioVolume={this.props.audioVolume} />]
+            return [<Button class="songTitle" tune={item.name} key={item.id} letter={item.realKey} source={item.source} onOff={this.props.onOff} audioVolume={this.props.audioVolume} />]
           })):
           (soundsObjects.slice(9, 18).map((item, i) => ([
-          <Button tune={item.name} key={item.id} letter={item.realKey} source={item.source} onOff={this.props.onOff} audioVolume={this.props.audioVolume} />])
+          <Button class="songTitle" tune={item.name} key={item.id} letter={item.realKey} source={item.source} onOff={this.props.onOff} audioVolume={this.props.audioVolume} />])
           ))}
           </MyLocalContext.Consumer>
 

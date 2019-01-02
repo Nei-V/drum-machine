@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const MyLocalContext = React.createContext("set1");
+export const MyLocalContext = React.createContext("FIRST SET");
 
 class LocalProvider extends React.Component {
     constructor(props) {
@@ -8,7 +8,7 @@ class LocalProvider extends React.Component {
 
         this.changeSounds = () => {
             this.setState(state => {
-                const newSet = state.soundSet === 'set1' ? 'set2' : 'set1';
+                const newSet = state.soundSet === 'FIRST SET' ? 'SECOND SET' : 'FIRST SET';
                 return {
                     soundSet: newSet
                 };
@@ -16,7 +16,7 @@ class LocalProvider extends React.Component {
         };
 
         this.state = {
-            soundSet: 'set1',
+            soundSet: 'FIRST SET',
             changeSounds: this.changeSounds
         };
     }

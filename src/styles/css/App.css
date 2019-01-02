@@ -18,21 +18,33 @@
   width: auto%;
   max-width:400px;
   margin: auto;
+  padding-top:10px;
   display: grid;
-  grid-template-columns: 100px 300px 100px;
+  grid-template-columns: 140px 140px 140px;
   grid-template-areas: "buttons display volume";
 }
 
 #buttons {
   grid-area: buttons;
+  margin-top:20px;
+  display: flex;
+  flex-direction:column;
+  justify-content: space-evenly;
 }
 
 .centerDisplay {
   grid-area: display;
+  background-color:rgba(222, 233, 186, 0.8);
+  border-style: inset;
+  border-width:8px;
+  border-right-width:3px;
+  box-shadow:0px 0px 20px 20px inset rgba(222, 233, 186, 0.9)
 }
 
 .volume {
   grid-area: volume;
+  
+  
 }
 
 /* learned from here - toggle power
@@ -93,6 +105,14 @@ https://codepen.io/halvves/pen/BxXNYq */
   transform: translate3d(25%, 0, 0);
 }
 
+.powerToggleLabel {
+  position:absolute;
+  margin-left:0px;
+  font-weight:bold;
+  margin-top:5px;
+  font-size: 1em;
+}
+
 /* learned from   http://jsfiddle.net/volcanicpixels/udXXA/     - change set button   */
 
 .sound-set-toggle {
@@ -123,37 +143,60 @@ https://codepen.io/halvves/pen/BxXNYq */
   box-shadow: inset 0 10px 15px 0 #6e6e6d;
 }
 
+/* the button pad */
+
 #button-pad {
   position: relative;
   margin: auto;
   max-width: 400px;
   min-width: 400px;
   min-height: 200px;
-  background: url(pad2.svg);
+  background: url(pad2-3d.svg);
  }
 
-/*  volumeSlider      */
+/*  The Display */
+.nowPlaying {
+  font-size:0.8em;
+  font-weight: 100;
+}
+
+.songTitle {
+  font-weight:bold;
+}
+
+.pressAButton {
+  font-weight: bold;
+  font-stretch: expanded;
+}
+
+/*  volumeSlider - for Chrome     */
 
 #volumeToggle {
-  position: relative;
+  display:flex;
+  flex-direction: column-reverse;
+  justify-content: center;
   writing-mode: vertical-lr;
   -webkit-writing-mode: vertical-lr;
   text-orientation: sideways;
+ align-items:center;
 }
 
 
 .volume-slider {
-  position: absolute;
+
   -webkit-appearance: none;
-  width: 150px;
+  width: 100px;
   height: 15px;
   border-radius: 5px;
-  background: #343333;
+  background: linear-gradient(#ff7f2a, #ee6a12);
+  /* border: solid 2px #ff7f2a; */
+  box-shadow: inset 0 0 2px 2px #682e07;
   outline: none;
- 
+  margin-left:80px;
+  margin-top:120px;
   -webkit-transition: .2s;
   transition: opacity .2s;
-  transform-origin: 75px 75px;
+  transform-origin: 0px 0px;
   transform: rotate(-90deg);
 }
 
@@ -166,31 +209,51 @@ https://codepen.io/halvves/pen/BxXNYq */
   clip-path: polygon(0 0, 50% 100%, 100% 0);
   transform-origin: 15px 20px;
   transform: rotate(90deg);
-  background: #4CAF50;
+  background: radial-gradient(circle at 50% 90%,
+  rgb(113, 238, 51) 5%, rgb(89, 98, 89) 90%);
+border-right: solid 2px #ff7f2a;
   cursor: pointer;
 }
 
+.volumeLabel{
+  font-weight:bold;
+  font-size: 1em;
+  align-self: auto;
+  margin-left:-80px;
+}
+
+/*  volumeSlider - for Firefox     */
 
 @media(min--moz-device-pixel-ratio:0) {
   #volumeToggle {
+    
   position:relative;
   writing-mode: horizontal-tb;
     /*     vertical mode breaks the slider's thumb movement - maybe bug in firefox
  */
+ display:flex;
+  flex-direction: column;
+  justify-content: center;
   }
 
+  .volumeLabel{
+    font-weight:bold;
+    margin-top:5px;
+    font-size: 1em;
+    margin-left:5px;
+  }
   
   .volume-slider {
-    position: absolute;
-   
-    margin-left:-35px;
-    width: 120px;
+position: relative;
+    margin-left:90px;
+    margin-top:100px;
+    width: 100px;
     height: 15px;
     border-radius: 5px;
-    background: #ff7f2a;
+    
     -webkit-transition: .2s;
     transition: opacity .2s;
-    transform-origin: 75px 75px;
+    transform-origin: 0px 0px;
     transform: rotate(-90deg);
     background: linear-gradient(#ff7f2a, #ee6a12);
     /* border: solid 2px #ff7f2a; */
@@ -209,11 +272,7 @@ https://codepen.io/halvves/pen/BxXNYq */
       rgb(113, 238, 51) 5%, rgb(89, 98, 89) 90%);
     border-right: solid 2px #ff7f2a;
     cursor: pointer;
-    
-    
-    
   }
- 
 
 }
 

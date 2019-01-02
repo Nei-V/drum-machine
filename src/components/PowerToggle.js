@@ -6,7 +6,7 @@ class PowerToggle extends Component {
     constructor(props) {
         super(props);
         this.handleClickPower = this.handleClickPower.bind(this);
-        this.state = { onOff: true };
+        this.state = { onOff: false };
         console.log("props in powerToggle", props);
     }
 
@@ -20,10 +20,11 @@ class PowerToggle extends Component {
     }
     render() {
         return (
-            <label id="powerToggle" className="powerContainer">Power
+            <label id="powerToggle" className="powerContainer">
+            <span className="powerToggleLabel">Power</span>
                 <span>
                 <div className="toggle">
-                    <input className="toggle-state" type="checkbox" id="powerToggleButton" onClick={this.handleClickPower} value="checked" />
+                    <input className="toggle-state" type="checkbox" id="powerToggleButton" onClick={this.handleClickPower} defaultChecked="true" />
                     <div className="toggle-inner">
                         <div className="indicator"></div>
                     </div>

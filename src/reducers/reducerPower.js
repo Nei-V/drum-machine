@@ -1,6 +1,6 @@
 import {POWER} from '../constants';
 
-const isPowered = (state = false, action) => {
+const isPowered = (state = true, action) => {
     switch (action.type) {
         case POWER:
         console.log("onOff in reducer received",action.onOff);
