@@ -6,10 +6,11 @@ class Footer extends Component {
       function createFooter(a) {
         return { __html: a }
       }
-      return (
+      return ([
+        <a href="https://github.com/Nei-V/drum-machine" className="linkToGithub">The Github Repository of This project</a>,
         <div id="footerInReact" dangerouslySetInnerHTML={createFooter(FOOTER)}>
         </div>
-      )
+      ])
     }
   }
 

@@ -1,5 +1,8 @@
 # The drum machine!
 
+You can see the live site here (I'm using Netlify):
+
+
 This is the last project in the freeCodeCamp front end frameworks curriculum.
 
 I've tried to use many things (even though not all of them are necessary) in order to learn as much as possible from it.
@@ -13,7 +16,7 @@ Probably the css could have been organized in a different way.
 I've used css grid, flexbox, clip-path , transform, translate, text-orientation, writing-mode.
 
 I didn't use scss, as I didn't see it's usage (tips of how it could be used in this project are welcome).
-
+Fontawesome  library was used for the icons in the footer.
 
 For svg I've used Inkscape. 
 
