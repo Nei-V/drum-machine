@@ -1,9 +1,11 @@
 # The drum machine!
 
-You can see the live site here (I'm using Netlify):
+You can see the live site [here](https://drum-machine-freecodecamp.netlify.com/) (I'm using Netlify):
 
 
 This is the last project in the freeCodeCamp front end frameworks curriculum.
+
+The site looks good only with Chrome and Firefox browsers (I didn't try to adapt it to other browsers).
 
 I've tried to use many things (even though not all of them are necessary) in order to learn as much as possible from it.
 
