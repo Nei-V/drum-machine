@@ -1,1 +1,0 @@
-import {CHOSEN_SET} from '../constants';
